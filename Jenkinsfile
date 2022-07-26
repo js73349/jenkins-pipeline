@@ -6,7 +6,7 @@ pipeline {
   
   stages {
     
-    stage ("Check changes") {
+    stage ("Check Changes") {
       steps {
         echo "Check if there are any changes pushed into this branch..."
         script {
@@ -16,7 +16,7 @@ pipeline {
       }
     }
     
-    stage ("build") { 
+    stage ("Build") { 
       when {
         expression {
           changeCount > 0
@@ -24,29 +24,29 @@ pipeline {
       }
       
       steps {
-        echo 'building the application ...'
+        echo "Building the application --> ${BRANCH_NAME}"
       }
     }
     
-    stage ("test") { 
+    stage ("Test") { 
       when {
         expression {
           changeCount > 0
         }
       }
       steps {
-        echo 'testing the application ...'
+        echo "Testing the application --> ${BRANCH_NAME}"
       }
     }
     
-    stage ("deploy") { 
+    stage ("Deploy") { 
       when {
         expression {
           changeCount > 0
         }
       }
       steps {
-        echo 'deploying the application ...'
+        echo "Deploying the application --> ${BRANCH_NAME}"
       }
     }
   }
