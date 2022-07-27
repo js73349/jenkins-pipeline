@@ -48,6 +48,8 @@ pipeline {
       steps {
         echo "Deploying the application --> ${BRANCH_NAME}"
         sh '''
+          git config --global user.email "js73349@gmail.com"
+          
           git checkout dev1
           git pull origin dev1
 
