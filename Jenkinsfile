@@ -50,8 +50,12 @@ pipeline {
         sh '''
           git fetch origin integration
           git merge integration --ff-only
+          
+          git checkout dev1
+          get pull dev1
 
           git checkout integration
+          git pull origin integration
           git merge dev1 --no-ff --log
           git push origin integration --no-verify
         '''
