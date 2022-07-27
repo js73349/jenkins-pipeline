@@ -55,7 +55,7 @@ pipeline {
 
           git checkout integration
           git pull origin integration
-          git merge dev3 --no-ff --log
+          git merge dev1 --no-ff --log
           git push origin integration --no-verify
         '''
       }
