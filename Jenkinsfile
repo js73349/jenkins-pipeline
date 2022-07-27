@@ -48,6 +48,7 @@ pipeline {
       steps {
         echo "Deploying the application --> ${BRANCH_NAME}"
         sh '''
+          
           git checkout dev1
           git pull origin dev1
 
