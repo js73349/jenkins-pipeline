@@ -48,14 +48,16 @@ pipeline {
       steps {
         echo "Deploying the application --> ${BRANCH_NAME}"
         sh '''
-          git branch -a
-          git branch integration
+          
+          git checkout dev1
+          git pull origin dev1
+
           git fetch origin integration
           git merge integration --ff-only
-
+          
           git checkout integration
           git pull origin integration
-          git merge dev3 --no-ff --log
+          git merge dev1 --no-ff --log
           git push origin integration --no-verify
         '''
       }
