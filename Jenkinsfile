@@ -47,6 +47,17 @@ pipeline {
       }
       steps {
         echo "Deploying the application --> ${BRANCH_NAME}"
+        sh '''
+          git branch -a
+          git branch integration
+          git fetch origin integration
+          git merge integration --ff-only
+
+          git checkout integration
+          git pull origin integration
+          git merge dev3 --no-ff --log
+          git push origin integration --no-verify
+        '''
       }
     }
   }
