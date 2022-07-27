@@ -48,8 +48,6 @@ pipeline {
       steps {
         echo "Deploying the application --> ${BRANCH_NAME}"
         sh '''
-          git branch -a
-          git branch integration
           git fetch origin integration
           git merge integration --ff-only
 
