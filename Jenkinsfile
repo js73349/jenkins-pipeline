@@ -49,7 +49,7 @@ pipeline {
         echo "Deploying the application --> ${BRANCH_NAME}"
         // sshagent(['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']) {
         withCredentials([usernamePassword(credentialsId: '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', passwordVariable: 'pass', usernameVariable: 'user')]) {
-          eho "${user}"
+          echo "${user}"
           sh '''
             git config user.email "js73349@gmail.com"
             git config user.name "Jeff Smith"
