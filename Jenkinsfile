@@ -52,7 +52,6 @@ pipeline {
           git merge integration --ff-only
 
           git checkout integration
-          git pull origin integration
           git merge dev1 --no-ff --log
           git push origin integration --no-verify
         '''
