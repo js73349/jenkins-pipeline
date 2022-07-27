@@ -52,7 +52,7 @@ pipeline {
           git merge integration --ff-only
           
           git checkout dev1
-          get pull dev1
+          git pull dev1
 
           git checkout integration
           git pull origin integration
