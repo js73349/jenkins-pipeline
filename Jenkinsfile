@@ -49,6 +49,7 @@ pipeline {
         echo "Deploying the application --> ${BRANCH_NAME}"
         sshagent(['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']) {
           sh '''
+            
             git fetch origin integration
             git merge integration --ff-only
 
@@ -56,6 +57,7 @@ pipeline {
             git pull origin integration
             git merge dev1 --no-ff --log
             git push origin integration --no-verify
+            
           '''
         }
       }
