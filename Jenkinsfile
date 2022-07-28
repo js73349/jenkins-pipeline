@@ -51,7 +51,7 @@ pipeline {
         script {
           withCredentials([usernamePassword(credentialsId: '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', passwordVariable: 'GIT_PWD', usernameVariable: 'GIT_USR')]) {
             echo "${GIT_USR}"
-            def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
+            def encodedPassword = URLEncoder.encode("$GIT_PWD",'UTF-8')
             sh "git config user.email js73349@gmail.com"
             sh "git config user.name 'Jeff Smith'"
 
