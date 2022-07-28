@@ -52,6 +52,8 @@ pipeline {
           withCredentials([usernamePassword(credentialsId: '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', passwordVariable: 'GIT_PWD', usernameVariable: 'GIT_USR')]) {
             echo "${GIT_USR}"
             def encodedPassword = URLEncoder.encode("$GIT_PWD",'UTF-8')
+            def PAT  = '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'
+            
             sh "git config user.email js73349@gmail.com"
             sh "git config user.name 'Jeff Smith'"
 
@@ -61,7 +63,7 @@ pipeline {
             sh "git checkout integration"
             sh "git pull origin integration"
             sh "git merge dev1 --no-ff --log"
-            sh "git push https://${GIT_USR}:${encodedPassword}@github.com/${GIT_USR}/jenkins-pipeline.git --no-verify"
+            sh "git push https://${GIT_USR}:${PAT}@github.com/${GIT_USR}/jenkins-pipeline.git --no-verify"
             // sh "git push origin integration --no-verify"
           }
         }
