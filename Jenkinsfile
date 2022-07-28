@@ -1,5 +1,4 @@
 def changeCount = 0
-def encodedPassword = ''
 
 pipeline {
   
@@ -49,20 +48,22 @@ pipeline {
       steps {
         echo "Deploying the application --> ${BRANCH_NAME}"
         // sshagent(['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']) {
-        withCredentials([usernamePassword(credentialsId: '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', passwordVariable: 'GIT_PWD', usernameVariable: 'GIT_USR')]) {
-          echo "${GIT_USR}"
-          encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
-          sh "git config user.email js73349@gmail.com"
-          sh "git config user.name 'Jeff Smith'"
-  
-          sh "git fetch origin integration"
-          sh "git merge integration"
+        script {
+          withCredentials([usernamePassword(credentialsId: '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', passwordVariable: 'GIT_PWD', usernameVariable: 'GIT_USR')]) {
+            echo "${GIT_USR}"
+            def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
+            sh "git config user.email js73349@gmail.com"
+            sh "git config user.name 'Jeff Smith'"
 
-          sh "git checkout integration"
-          sh "git pull origin integration"
-          sh "git merge dev1 --no-ff --log"
-          sh "git push https://${GIT_USR}:${encodedPassword}@github.com/${GIT_USR}/jenkins-pipeline.git --no-verify"
-          // sh "git push origin integration --no-verify"
+            sh "git fetch origin integration"
+            sh "git merge integration"
+
+            sh "git checkout integration"
+            sh "git pull origin integration"
+            sh "git merge dev1 --no-ff --log"
+            sh "git push https://${GIT_USR}:${encodedPassword}@github.com/${GIT_USR}/jenkins-pipeline.git --no-verify"
+            // sh "git push origin integration --no-verify"
+          }
         }
       }
     }
