@@ -55,7 +55,8 @@ pipeline {
             git config user.name "Jeff Smith"
   
             git fetch origin integration
-            git merge integration --ff-only
+            git merge integration
+            //git merge integration --ff-only
 
             git checkout integration
             git pull origin integration
