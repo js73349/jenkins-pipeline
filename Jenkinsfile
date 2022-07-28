@@ -56,7 +56,6 @@ pipeline {
   
             git fetch origin integration
             git merge integration
-            // git merge integration --ff-only
 
             git checkout integration
             git pull origin integration
