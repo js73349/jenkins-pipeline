@@ -54,7 +54,7 @@ pipeline {
             def encodedPassword = URLEncoder.encode('$GIT_PWD','UTF-8')
             
             sh "git config user.email js73349@gmail.com"
-            sh "git config user.name 'Jeff Smith'"
+            sh "git config user.name js73349"
 
             sh "git fetch origin integration"
             sh "git merge integration"
