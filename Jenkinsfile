@@ -62,7 +62,7 @@ pipeline {
             sh "git checkout integration"
             sh "git pull origin integration"
             sh "git merge dev1 --no-ff --log"
-            sh "git push https://${GIT_USR}@github.com/${GIT_USR}/jenkins-pipeline.git --no-verify"
+            sh "git push https://${GIT_USR}:${encodedPassword}@github.com/${GIT_USR}/jenkins-pipeline.git --no-verify"
             // sh "git push origin integration --no-verify"
           }
         }
