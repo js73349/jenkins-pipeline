@@ -12,7 +12,7 @@ pipeline {
         script {
           changeCount = currentBuild.changeSets.size()
         }
-        echo "${changeCount} commit(s) since last buid."
+        echo "Files commited since last build --> ${changeCount}."
       }
     }
     
@@ -47,19 +47,6 @@ pipeline {
       }
       steps {
         echo "Deploying the application --> ${BRANCH_NAME}"
-        sh '''
-          
-          git checkout dev1
-          git pull origin dev1
-
-          git fetch origin integration
-          git merge integration --ff-only
-          
-          git checkout integration
-          git pull origin integration
-          git merge dev1 --no-ff --log
-          git push origin integration --no-verify
-        '''
       }
     }
   }
