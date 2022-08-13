@@ -25,6 +25,9 @@ pipeline {
       
       steps {
         echo "Building the application --> ${BRANCH_NAME}"
+        script {
+            sh "git branch -a"
+        }
       }
     }
     
