@@ -8,7 +8,7 @@ class SpringbootappApplicationTests {
 
 	@Test
 	void contextLoads() {
-		System.out.println("Testing 1 2 3");
+		System.out.println("Hello World!");
 	}
 
 }
