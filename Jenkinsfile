@@ -92,7 +92,7 @@ pipeline {
       always {
           echo "Clean up!"
           // sh "git branch -d ${BRANCH_NAME}"
-          //sh "git branch -d integration"
+          sh "git branch -d integration"
       }
   }
 }
