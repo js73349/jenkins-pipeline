@@ -90,7 +90,8 @@ pipeline {
   post {
       always {
           echo "Clean up!"
-          sh "git worktree remove"
+          sh "git worktree list"
+          sh "git worktree remove -f"
           // sh "git branch -d ${BRANCH_NAME}"
           sh "git branch -d integration"
       }
