@@ -37,6 +37,7 @@ pipeline {
                 sh "mvn clean install"
             }
         }
+       echo "Build successful --> ${BRANCH_NAME}"
       }
     }
     
