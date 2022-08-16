@@ -62,7 +62,6 @@ pipeline {
         echo "Deploying the application --> ${BRANCH_NAME}"
         script {
           sshagent(['SSH_KEY_GH']) {
-
               if (env.BRANCH_NAME != 'integration') {
                 // sh "git config user.email js73349@gmail.com"
                 // sh "git config user.name js73349"
