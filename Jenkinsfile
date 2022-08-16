@@ -35,6 +35,7 @@ pipeline {
                 sh "git checkout ${BRANCH_NAME}"
                 sh "git pull origin ${BRANCH_NAME}"
                 sh "which java"
+
                 sh "mvn clean install"
             }
         }
