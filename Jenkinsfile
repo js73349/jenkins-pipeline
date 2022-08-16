@@ -27,6 +27,7 @@ pipeline {
           changeCount > 0
         }
       }
+
       steps {
         echo "Building the application --> ${BRANCH_NAME}"
         script {
