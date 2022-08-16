@@ -3,6 +3,11 @@ def changeCount = 0
 pipeline {
   
   agent any
+
+  tools {
+    maven 'Maven 3.8.6'
+    jdk 'jdk8'
+  }
   
   stages {
     
@@ -12,7 +17,7 @@ pipeline {
         script {
           changeCount = currentBuild.changeSets.size()
         }
-        echo "Files commited since last build --> ${changeCount}."
+        echo "Files committed since last build --> ${changeCount}."
       }
     }
     
@@ -26,7 +31,11 @@ pipeline {
       steps {
         echo "Building the application --> ${BRANCH_NAME}"
         script {
-            sh "git branch -a"
+            sshagent(['SSH_KEY_GH']) {
+                sh "git checkout ${BRANCH_NAME}"
+                sh "git pull origin ${BRANCH_NAME}"
+                sh "mvn clean install"
+            }
         }
       }
     }
