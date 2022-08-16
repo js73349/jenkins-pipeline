@@ -63,25 +63,26 @@ pipeline {
         script {
           sshagent(['SSH_KEY_GH']) {
 
-            // sh "git config user.email js73349@gmail.com"
-            // sh "git config user.name js73349"
-            // sh "git config pull.ff only"
-            // sh "git config pull.rebase true"
+              if (${BRANCH_NAME} != 'integration') {
+                // sh "git config user.email js73349@gmail.com"
+                // sh "git config user.name js73349"
+                // sh "git config pull.ff only"
+                // sh "git config pull.rebase true"
 
-            // sh "rm -fr '.git/rebase-merge'"
-            // sh "git rebase --abort"
+                // sh "rm -fr '.git/rebase-merge'"
+                // sh "git rebase --abort"
 
-            sh "git branch -a"
-            // sh "git branch integration"
-            // sh "git fetch origin integration"
-            // sh "git merge integration --ff-only"
-            // sh "git branch -a"
+                sh "git branch -a"
+                sh "git branch integration"
+                sh "git fetch origin integration"
+                sh "git merge integration --ff-only"
+                sh "git branch -a"
 
-            // sh "git checkout integration"
-            // sh "git pull origin integration"
-            // sh "git merge ${BRANCH_NAME} --no-ff --log"
-            // sh "git push origin integration --no-verify"
-
+                sh "git checkout integration"
+                sh "git pull origin integration"
+                sh "git merge ${BRANCH_NAME} --no-ff --log"
+                sh "git push origin integration --no-verify"
+              }
           }
         }
       }
@@ -91,7 +92,7 @@ pipeline {
       always {
           echo "Clean up!"
           // sh "git branch -d ${BRANCH_NAME}"
-          // sh "git branch -d integration"
+          sh "git branch -d integration"
       }
   }
 }
