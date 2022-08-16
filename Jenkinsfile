@@ -34,7 +34,6 @@ pipeline {
             sshagent(['SSH_KEY_GH']) {
                 sh "git checkout ${BRANCH_NAME}"
                 sh "git pull origin ${BRANCH_NAME}"
-                sh "which java"
                 sh "mvn clean install"
             }
         }
