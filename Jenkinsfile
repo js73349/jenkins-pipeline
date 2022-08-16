@@ -63,7 +63,7 @@ pipeline {
         script {
           sshagent(['SSH_KEY_GH']) {
 
-              if (${BRANCH_NAME} != 'integration') {
+              if (env.BRANCH_NAME != 'integration') {
                 // sh "git config user.email js73349@gmail.com"
                 // sh "git config user.name js73349"
                 // sh "git config pull.ff only"
@@ -92,7 +92,7 @@ pipeline {
       always {
           echo "Clean up!"
           // sh "git branch -d ${BRANCH_NAME}"
-          sh "git branch -d integration"
+          //sh "git branch -d integration"
       }
   }
 }
