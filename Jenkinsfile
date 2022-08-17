@@ -98,12 +98,15 @@ pipeline {
           //sh "git worktree list"
           //sh "git worktree remove -f"
           // sh "git branch -d ${BRANCH_NAME}"
-
-          try {
-            sh "git branch -d integration"
-            echo "Integration branch delete - SUCCESSFUL"
-          } catch (err) {
-            echo "Integration branch delete - FAILED"
+          script {
+            sshagent(['SSH_KEY_GH']) {
+              try {
+                sh "git branch -d integration"
+                echo "Integration branch delete - SUCCESSFUL"
+              } catch (err) {
+                echo "Integration branch delete - FAILED"
+              }
+            }
           }
       }
   }
