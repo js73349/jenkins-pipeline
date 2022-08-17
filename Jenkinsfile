@@ -63,8 +63,8 @@ pipeline {
         script {
           sshagent(['SSH_KEY_GH']) {
               if (env.BRANCH_NAME != 'integration') {
-                // sh "git config user.email js73349@gmail.com"
-                // sh "git config user.name js73349"
+                sh "git config user.email js73349@gmail.com"
+                sh "git config user.name js73349"
                 // sh "git config pull.ff only"
                 // sh "git config pull.rebase true"
 
@@ -72,7 +72,12 @@ pipeline {
                 // sh "git rebase --abort"
 
                 sh "git branch -a"
-                sh "git branch integration"
+                try {
+                    sh "git branch integration"
+                    echo "Integration branch created!"
+                } catch (err) {
+                    echo "Integration branch exists!"
+                }
                 sh "git fetch origin integration"
                 sh "git merge integration --ff-only"
                 sh "git branch -a"
@@ -90,8 +95,19 @@ pipeline {
   post {
       always {
           echo "Clean up!"
+          //sh "git worktree list"
+          //sh "git worktree remove -f"
           // sh "git branch -d ${BRANCH_NAME}"
-          sh "git branch -d integration"
+          script {
+            sshagent(['SSH_KEY_GH']) {
+              try {
+                sh "git branch -d integration"
+                echo "Integration branch delete - SUCCESSFUL"
+              } catch (err) {
+                echo "Integration branch delete - FAILED"
+              }
+            }
+          }
       }
   }
 }
