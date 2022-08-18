@@ -79,7 +79,8 @@ pipeline {
                     echo "Integration branch exists!"
                 }
                 sh "git fetch origin integration"
-                sh "git merge integration --ff-only"
+                // sh "git merge integration --ff-only"
+                sh "git merge integration"
                 sh "git branch -a"
 
                 sh "git checkout integration"
