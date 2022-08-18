@@ -55,7 +55,7 @@ pipeline {
     stage ("Deploy") { 
       when {
         expression {
-          changeCount > 0
+          changeCount > 0 && env.BRANCH_NAME != 'integration'
         }
       }
       steps {
