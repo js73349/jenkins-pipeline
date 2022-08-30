@@ -1,6 +1,7 @@
 /.vs
 /.git
 Jenkinsfile
+test.log
 
 HELP.md
 target/

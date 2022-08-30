@@ -34,7 +34,7 @@ pipeline {
             sshagent(['SSH_KEY_GH']) {
                 sh "git checkout ${BRANCH_NAME}"
                 sh "git pull origin ${BRANCH_NAME}"
-                sh "mvn clean install"
+                sh "mvn clean install -DskipTests"
             }
         }
        echo "Build successful --> ${BRANCH_NAME}"
@@ -49,10 +49,16 @@ pipeline {
       }
       steps {
         echo "Testing the application --> ${BRANCH_NAME}"
+        script {
+            sshagent(['SSH_KEY_GH']) {
+                sh "mvn test"
+            }
+        }
+       echo "Tests successful --> ${BRANCH_NAME}"
       }
     }
     
-    stage ("Deploy") { 
+    stage ("Integrate") {
       when {
         expression {
           changeCount > 0 && env.BRANCH_NAME != 'integration'
@@ -62,7 +68,7 @@ pipeline {
         echo "Deploying the application --> ${BRANCH_NAME}"
         script {
           sshagent(['SSH_KEY_GH']) {
-              if (env.BRANCH_NAME != 'integration') {
+
                 sh "git config user.email js73349@gmail.com"
                 sh "git config user.name js73349"
                 // sh "git config pull.ff only"
@@ -87,7 +93,7 @@ pipeline {
                 sh "git pull origin integration"
                 sh "git merge ${BRANCH_NAME} --no-ff --log"
                 sh "git push origin integration --no-verify"
-              }
+
           }
         }
       }
@@ -101,11 +107,13 @@ pipeline {
           // sh "git branch -d ${BRANCH_NAME}"
           script {
             sshagent(['SSH_KEY_GH']) {
-              try {
-                sh "git branch -d integration"
-                echo "Integration branch delete - SUCCESSFUL"
-              } catch (err) {
-                echo "Integration branch delete - FAILED"
+              if (env.BRANCH_NAME != 'integration') {
+                  try {
+                    sh "git branch -d integration"
+                    echo "Integration branch delete - SUCCESSFUL"
+                  } catch (err) {
+                    echo "Integration branch delete - FAILED"
+                  }
               }
             }
           }
