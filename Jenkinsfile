@@ -101,6 +101,7 @@ pipeline {
           changeCount > 0 && env.BRANCH_NAME == 'integration'
         }
       }
+      $env:DOCKER_HOST = 'tcp://9.163.7.162:2375'
       steps {
         //def dockerHome = tool 'docker'
        // echo '${dockerHome}'
