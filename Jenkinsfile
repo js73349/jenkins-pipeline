@@ -102,6 +102,9 @@ pipeline {
         }
       }
       steps {
+        //def dockerHome = tool 'docker'
+       // echo '${dockerHome}'
+        //env.PATH = "${dockerHome}/bin:${env.PATH}"
         echo "Docker Image Build --> ${BRANCH_NAME}"
         script {
           dockerImage = docker.build("hello_world:${env.BUILD_NUMBER}")
