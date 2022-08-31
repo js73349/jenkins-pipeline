@@ -100,6 +100,8 @@ pipeline {
         expression {
           changeCount > 0 && env.BRANCH_NAME == 'integration'
         }
+        def dockerHome = tool 'MyDocker'
+        env.PATH = "${dockerHome}/bin:${env.PATH}"
       }
       steps {
         echo "Docker Image Build --> ${BRANCH_NAME}"
