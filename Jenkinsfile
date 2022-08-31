@@ -1,4 +1,6 @@
 def changeCount = 0
+def WORKSPACE = "/var/lib/jenkins/workspace/hello_world-deploy"
+def dockerImageTag = "hello_world${env.BUILD_NUMBER}"
 
 pipeline {
   
@@ -65,17 +67,12 @@ pipeline {
         }
       }
       steps {
-        echo "Deploying the application --> ${BRANCH_NAME}"
+        echo "Integrating branch --> ${BRANCH_NAME}"
         script {
           sshagent(['SSH_KEY_GH']) {
 
                 sh "git config user.email js73349@gmail.com"
                 sh "git config user.name js73349"
-                // sh "git config pull.ff only"
-                // sh "git config pull.rebase true"
-
-                // sh "rm -fr '.git/rebase-merge'"
-                // sh "git rebase --abort"
 
                 sh "git branch -a"
                 try {
@@ -93,8 +90,36 @@ pipeline {
                 sh "git pull origin integration"
                 sh "git merge ${BRANCH_NAME} --no-ff --log"
                 sh "git push origin integration --no-verify"
-
           }
+        }
+      }
+    }
+    stage ("Docker Image - Build") {
+      when {
+        expression {
+          changeCount > 0 && env.BRANCH_NAME == 'integration'
+        }
+      }
+      steps {
+        echo "Docker Image Build --> ${BRANCH_NAME}"
+        script {
+          dockerImage = docker.build("hello_world:${env.BUILD_NUMBER}")
+        }
+      }
+    }
+
+    stage ("Docker Image - Deploy") {
+      when {
+        expression {
+          changeCount > 0 && env.BRANCH_NAME == 'integration'
+        }
+      }
+      steps {
+        echo "Deploying App --> ${BRANCH_NAME}"
+        script {
+            sh "docker stop hello_world || true && docker rm hello_world || true"
+            sh "docker run --name hello_world -d -p 8081:8080 hello_world:${env.BUILD_NUMBER}"
+            echo "Deployment successful!"
         }
       }
     }
@@ -102,9 +127,6 @@ pipeline {
   post {
       always {
           echo "Clean up!"
-          //sh "git worktree list"
-          //sh "git worktree remove -f"
-          // sh "git branch -d ${BRANCH_NAME}"
           script {
             sshagent(['SSH_KEY_GH']) {
               if (env.BRANCH_NAME != 'integration') {
