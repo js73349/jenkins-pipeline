@@ -9,7 +9,6 @@ pipeline {
   tools {
     maven 'Maven 3.8.6'
     jdk 'jdk8'
-    docker 'MyDocker'
   }
   
   stages {
@@ -101,7 +100,7 @@ pipeline {
         expression {
           changeCount > 0 && env.BRANCH_NAME == 'integration'
         }
-        def dockerHome = tool 'MyDocker'
+        def dockerHome = tool 'docker'
         echo '${dockerHome}'
         env.PATH = "${dockerHome}/bin:${env.PATH}"
       }
