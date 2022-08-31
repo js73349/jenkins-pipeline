@@ -94,6 +94,7 @@ pipeline {
         }
       }
     }
+
     stage ("Docker Image - Build") {
       when {
         expression {
