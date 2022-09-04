@@ -1,7 +1,7 @@
 def changeCount = 0
 def WORKSPACE = "/var/lib/jenkins/workspace/hello_world-deploy"
 def dockerImageTag = "hello_world${env.BUILD_NUMBER}"
-// env.DOCKER_HOST = 'tcp://9.163.7.162:2375'
+//env.DOCKER_HOST = 'tcp://9.163.7.162:2375'
 
 pipeline {
   
