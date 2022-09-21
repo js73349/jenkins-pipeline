@@ -9,7 +9,6 @@ pipeline {
   tools {
     maven 'Maven 3.8.6'
     jdk 'jdk8'
-    'org.jenkinsci.plugins.docker.commons.tools.DockerTool' '18.09'
   }
   
   stages {
@@ -37,7 +36,6 @@ pipeline {
             sshagent(['SSH_KEY_GH']) {
                 sh "git checkout ${BRANCH_NAME}"
                 sh "git pull origin ${BRANCH_NAME}"
-                sh "docker version"
             }
         }
        echo "Build successful --> ${BRANCH_NAME}"
