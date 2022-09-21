@@ -111,7 +111,7 @@ pipeline {
     stage ("Docker Image - Build") {
       when {
         expression {
-          changeCount > 0 && env.BRANCH_NAME == 'integration'
+          changeCount > 0 && env.BRANCH_NAME != 'integration'
         }
       }
       steps {
