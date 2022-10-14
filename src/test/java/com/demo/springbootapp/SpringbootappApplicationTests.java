@@ -36,13 +36,13 @@ class SpringbootappApplicationTests {
     }
 
     @Test
-    public void getGreetingMeesageSuccessResponse() throws Exception {
+    public void getGreetingMessageSuccessResponse() throws Exception {
         ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:" + port + "/", String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
-    public void getGreetingMeesageHelloWorld() throws Exception {
+    public void getGreetingMessageHelloWorld() throws Exception {
         assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/", String.class)).contains("Hello World!");
     }
 
